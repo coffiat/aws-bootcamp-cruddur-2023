@@ -2,13 +2,24 @@ version: "3.8"
 services:
   backend-flask:
     environment:
-      FRONTEND_URL: "*"
-      BACKEND_URL: "*"
+      FRONTEND_URL: "https://3000-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
+      BACKEND_URL: "https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
+      OTEL_SERVICE_NAME: 'backend-flask'
+      OTEL_EXPORTER_OTLP_ENDPOINT: "https://api.honeycomb.io"
+      OTEL_EXPORTER_OTLP_HEADERS: "x-honeycomb-team=${HONEYCOMB_API_KEY}"
     build: ./backend-flask
     ports:
       - "4567:4567"
     volumes:
       - ./backend-flask:/backend-flask
+    healthcheck:
+      # The --fail option in curl is used to fail silently and exit with a non-zero status code 
+      # if the HTTP response status code is not successful (i.e., not in the 200-299 range). 
+      # This is commonly used in scripts to determine if a resource is available or not.
+      test: "curl --fail https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}/health"
+      interval: 10s
+      timeout: 5s
+      retries: 3
   frontend-react-js:
     environment:
       REACT_APP_BACKEND_URL: "http://127.0.0.1:4567/"
