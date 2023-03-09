@@ -30,7 +30,7 @@ processor = BatchSpanProcessor(OTLPSpanExporter())
 provider.add_span_processor(processor)
 
 # show this in the logs within the backend-flask app (STDOUT)
-simple_processor = SimpleProcessor(ConsoleSpanExporter())
+simple_processor = SimpleSpanProcessor(ConsoleSpanExporter())
 provider.add_span_processor(simple_processor)
 
 trace.set_tracer_provider(provider)
