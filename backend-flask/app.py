@@ -75,8 +75,8 @@ app = Flask(__name__)
 #XRayMiddleware(app, xray_recorder)
 
 # Show this in the logs within the backend-flask app (STDOUT)
-simple_processor = SimpleSpanProcessor(ConsoleSpanExporter())
-provider.add_span_processor(simple_processor)
+#simple_processor = SimpleSpanProcessor(ConsoleSpanExporter())
+#provider.add_span_processor(simple_processor)
 
 
 # HoneyComb ----
