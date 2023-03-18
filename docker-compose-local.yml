@@ -23,13 +23,13 @@ services:
       REACT_APP_BACKEND_URL: "http://127.0.0.1:4567"
       REACT_APP_AWS_PROJECT_REGION: "${AWS_DEFAULT_REGION}"
       REACT_APP_AWS_COGNITO_REGION: "${AWS_DEFAULT_REGION}"
-      REACT_APP_AWS_USER_POOLS_ID: "us-east-1_lTnc1dR8t"
-      REACT_APP_CLIENT_ID: "1h329r0v1dcudj10sttup7vr9k"
+      REACT_APP_AWS_USER_POOLS_ID: "us-east-1_Xn5lcjs1g"
+      REACT_APP_CLIENT_ID: "2uddjkdn42l5cn89th80578ut8"
     build: ./frontend-react-js
     ports:
       - "3000:3000"
     volumes:
-      - ./frontend-react-js:/frontend-react-js
+      - ./frontend-react-js:/frontend-react-js 
   xray-daemon:
     image: "amazon/aws-xray-daemon"
     environment:
