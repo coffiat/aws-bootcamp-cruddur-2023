@@ -14,7 +14,7 @@ export default function SigninPage() {
 
   
 const onsubmit = async (event) => {
-  setCognitoErrors('')
+  setErrors('')
   event.preventDefault();
   try {
     Auth.signIn(email, password)
@@ -22,15 +22,16 @@ const onsubmit = async (event) => {
         localStorage.setItem("access_token", user.signInUserSession.accessToken.jwtToken)
         window.location.href = "/"
       })
-      .catch('Error => {
+      .catch(error => { 
+        if (error.code == 'UserNotConfirmedException') {
+          window.location.href = "/confirm"
+        }
+        setErrors(error.message)
 
-      });
-
+         });
   } catch (error) {
-    if (error.code == 'UserNotConfirmedException') {
-      window.location.href = "/confirm"
-    }
-    setCognitoErrors(error.message)
+    
+    
   }
   return false
 }
